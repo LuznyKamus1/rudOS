@@ -4,7 +4,7 @@ local fs
 
 for file_system in component.list("filesystem") do
     if component.invoke(file_system, "exists", "/rud.os") then
-        fs = filesystem
+        fs = file_system
     end
 end
 if not fs then
