@@ -3,12 +3,12 @@ local component = component or require(component)
 local fs
 
 for file_system in component.list("filesystem") do
-    if component.invoke(file_system, "exists", "/rud.os") then
+    if component.invoke(file_system, "exists", "/krn.lua") then
         fs = file_system
     end
 end
 if not fs then
-    error("/rud.os not detected!")
+    error("/krn.lua not detected!")
 end
 
 local function load_file(file_path)
