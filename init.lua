@@ -1,17 +1,17 @@
-local component = component or require(component)
+component = component or require(component)
 
 local fs
 
 for file_system in component.list("filesystem") do
-    if component.invoke(file_system, "exists", "/krn.lua") then
+    if component.invoke(file_system, "exists", "/rud.os") then
         fs = file_system
     end
 end
 if not fs then
-    error("/krn.lua not detected!")
+    error("/rud.os not detected!")
 end
 
-local function load_file(file_path)
+local function read_file(file_path)
     local file, reason = component.invoke(fs, "open", file_path, "r")
     if not file then
         error(reason)
@@ -30,9 +30,26 @@ local function load_file(file_path)
     
     until not data
 
-    return load(buffer, "=" .. file_path)
-    
+    return buffer
 end
 
-kernel = load_file("/krn.lua")
-kernel()
+local function load_file(file_path)
+    return load(read_file(file_path), "=" .. file_path)
+end
+
+PATH = "/mods/"
+local loadedModules = {}
+function require(module_name)
+    if loadedModules[module_name] then
+        return loadedModules[module_name]
+    end
+
+    local module = load_file(PATH..module_name..".lua")()
+    
+    loadedModules[module_name] = module
+
+    return module
+end
+
+
+load_file("/prog/login.lua")
