@@ -3,7 +3,7 @@ local component = component or require(component)
 local fs
 
 for file_system in component.list("filesystem") do
-    if component.invoke(file_system, "exists", "/rud.os")
+    if component.invoke(file_system, "exists", "/rud.os") then
         fs = filesystem
     end
 end
