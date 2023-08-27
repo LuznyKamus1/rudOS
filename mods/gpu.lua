@@ -1,6 +1,6 @@
-gpu = component.getPrimary("gpu")
+gpu = component.getPrimary("gpu").address
 
-local cursor_X, cursor_Y
+local cursor_X, cursor_Y = 0, 0
 
 function setBackgroundAndForeground(background, foreground)
     component.invoke(gpu, "setBackground", background)
@@ -24,9 +24,10 @@ end
 function init()
     component.invoke(gpu, "bind", component.getPrimary("Screen"))
     
+    setResolution(getMaxRes())
+    
     setBacgroundAndForeground(0xFFFFFF, 0x000000)
     
-    setResolution(getMaxRes())
 
     clear()
 
