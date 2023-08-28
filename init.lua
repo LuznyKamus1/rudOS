@@ -25,7 +25,8 @@ local _, debug = xpcall(
 
 function debug_say(msg)
     if not DBG then 
-        return "not debug"
+        --return "not debug"
+        error("NOT DBG")
     end
 
     succes, output = component.invoke(debug, "runCommand", "/say "..msg)
