@@ -7,7 +7,11 @@ local _, debug = xpcall(
         for dbg in component.list("debug") do
             result = dbg
         end
-        return result
+        if result then
+            return result
+        else
+            error()
+        end
     end, 
     function()
         error("NO DEBUGCARD!!!!!!!") 
