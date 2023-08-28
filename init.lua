@@ -3,7 +3,11 @@ component = component or require(component)
 DBG = true
 local _, debug = xpcall(
     function()
-        component.getPrimary("debug")
+        local result
+        for dbg in component.list("debug") do
+            result = dbg
+        end
+        return result
     end, 
     function()
         error("NO DEBUGCARD!!!!!!!") 
