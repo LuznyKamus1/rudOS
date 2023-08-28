@@ -1,6 +1,28 @@
-DBG = true
-
 component = component or require(component)
+
+DBG = true
+local _, debug = xpcall(
+    function()
+        component.getPrimary("debug")
+    end, 
+    function()
+        error("NO DEBUGCARD!!!!!!!") 
+        --DBG = false 
+    end
+)
+
+function debug_say(msg)
+    if not DBG then 
+        return "not debug"
+        --error("NOT DBG")
+    end
+
+    succes, output = component.invoke(debug, "runCommand", "/say "..msg)
+
+    if succes == 0 then
+        error(output)
+    end
+end
 
 local fs
 
@@ -13,28 +35,6 @@ if not fs then
     error("/rud.os not detected!")
 end
 
-local _, debug = xpcall(
-    function()
-        component.getPrimary("debug")
-    end, 
-    function() 
-        DBG = false 
-    end
-)
-
-
-function debug_say(msg)
-    if not DBG then 
-        --return "not debug"
-        error("NOT DBG")
-    end
-
-    succes, output = component.invoke(debug, "runCommand", "/say "..msg)
-
-    if succes == 0 then
-        error(output)
-    end
-end
 
 local function read_file(file_path)
     debug_say("reading file "..file_path)
