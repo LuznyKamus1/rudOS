@@ -1,4 +1,5 @@
 gpu = component.getPrimary("gpu").address
+screen = component.getPrimary("Screen")
 
 local cursor_X, cursor_Y = 0, 0
 
@@ -22,7 +23,9 @@ function clear()
 end
 
 function init()
-    component.invoke(gpu, "bind", component.getPrimary("Screen"))
+    screen.on()
+    
+    component.invoke(gpu, "bind", screen)
     
     setResolution(getMaxRes())
     
