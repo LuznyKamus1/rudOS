@@ -73,5 +73,4 @@ function require(module_name)
     return module
 end
 
-
 load_file("/prog/login.lua")
