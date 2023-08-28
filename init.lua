@@ -1,3 +1,5 @@
+DBG = true
+
 component = component or require(component)
 
 local fs
@@ -9,6 +11,24 @@ for file_system in component.list("filesystem") do
 end
 if not fs then
     error("/rud.os not detected!")
+end
+
+local debug
+if component.isAvailable("debug") then
+    debug = component.getPrimary("debug")
+else
+    DBG = false
+
+function debug_say(msg)
+    if not DBG then 
+        return "not debug"
+    end
+
+    succes, output = debug.runCommand("/say "..msg)
+
+    if succes == 0 then
+        error(output)
+    end
 end
 
 local function read_file(file_path)
@@ -34,6 +54,7 @@ local function read_file(file_path)
 end
 
 local function load_file(file_path)
+    debug_say("loading file "..file_path)
     return load(read_file(file_path), "=" .. file_path)
 end
 
