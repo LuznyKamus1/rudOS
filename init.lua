@@ -28,7 +28,7 @@ function debug_say(msg)
         return "not debug"
     end
 
-    succes, output = debug.runCommand("/say "..msg)
+    succes, output = component.invoke(debug, "runCommand", "/say "..msg)
 
     if succes == 0 then
         error(output)
@@ -36,6 +36,7 @@ function debug_say(msg)
 end
 
 local function read_file(file_path)
+    debug_say("reading file "..file_path)
     local file, reason = component.invoke(fs, "open", file_path, "r")
     if not file then
         error(reason)
