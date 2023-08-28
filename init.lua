@@ -13,7 +13,7 @@ if not fs then
     error("/rud.os not detected!")
 end
 
-local debug = xpcall(component.getPrimary("debug"), DBG = false)
+local debug = xpcall(component.getPrimary("debug"), local function turnoffdebug DBG = false end)
 
 
 function debug_say(msg)
