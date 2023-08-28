@@ -18,6 +18,7 @@ if component.isAvailable("debug") then
     debug = component.getPrimary("debug")
 else
     DBG = false
+end
 
 function debug_say(msg)
     if not DBG then 
